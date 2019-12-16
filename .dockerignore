@@ -1,5 +1,4 @@
 /.idea/
-/build/container/dev/.env
 /.env
 /public/bundles/
 /var/
