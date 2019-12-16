@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3"
 services:
     postgres:
         container_name: sf-postgres
@@ -16,6 +16,9 @@ services:
         build:
             context: ./docker
             dockerfile: php-fpm.docker
+            args:
+                - USER_ID
+                - GROUP_ID
         volumes:
             - ../../../:/app
         depends_on:
@@ -31,16 +34,6 @@ services:
             - php-fpm
         ports:
             - "818:80"
-    php-cli:
-        build:
-            context: ./docker
-            dockerfile: php-cli.docker
-        volumes:
-            - ../../../:/app
-            - composer:/root/.composer/cache
-        depends_on:
-            - postgres
 
 volumes:
     sf-postgres:
-    composer:

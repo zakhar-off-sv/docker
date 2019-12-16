@@ -18,7 +18,7 @@ docker-build:
 project-init: project-composer-install project-wait-postgres-db
 
 project-composer-install:
-	docker-compose run --rm php-cli composer install
+	docker-compose exec -T php-fpm composer install
 
 project-wait-postgres-db:
 	until docker-compose exec -T postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done
