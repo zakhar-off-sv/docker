@@ -1,8 +1,6 @@
 /.idea/
 /build/container/dev/.env
-/.env.local
-/.env.local.php
-/.env.*.local
+/.env
 /public/bundles/
 /var/
 /vendor/
