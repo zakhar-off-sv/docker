@@ -78,6 +78,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.0.1"
+    },
     "ocramius/package-versions": {
         "version": "1.5.1"
     },
@@ -227,6 +230,9 @@
     },
     "symfony/yaml": {
         "version": "v5.0.1"
+    },
+    "webimpress/safe-writer": {
+        "version": "2.0.0"
     },
     "zendframework/zend-code": {
         "version": "3.4.1"
