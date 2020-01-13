@@ -12,7 +12,7 @@ COPY ./php/default.ini /usr/local/etc/php/conf.d/default.ini
 RUN curl -sS https://getcomposer.org/installer \
     | php -- --install-dir=/usr/local/bin --filename=composer --quiet
 
-RUN chown -R www-data /var/www
+RUN chown -R www-data:www-data /var/www
 
 RUN usermod -u ${USER_ID} www-data && groupmod -g ${GROUP_ID} www-data
 
