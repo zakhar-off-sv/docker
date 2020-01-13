@@ -22,7 +22,7 @@ services:
                 - USER_ID
                 - GROUP_ID
         volumes:
-            - ../../../:/app
+            - ../../../:/var/www/app
         depends_on:
             - postgres
         networks:
@@ -33,7 +33,7 @@ services:
             context: ./docker
             dockerfile: nginx.docker
         volumes:
-            - ../../../:/app
+            - ../../../:/var/www/app
         depends_on:
             - php-fpm
         ports:
