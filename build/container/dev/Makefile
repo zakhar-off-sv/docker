@@ -1,7 +1,7 @@
-init: docker-down docker-pull docker-up project-init
+init: docker-down docker-pull docker-build docker-up project-init
 
 docker-up:
-	USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose up -d
+	USER_ID=`id -u` GROUP_ID=`id -g` docker-compose up -d
 
 docker-down:
 	docker-compose down --remove-orphans
@@ -13,7 +13,7 @@ docker-pull:
 	docker-compose pull
 
 docker-build:
-	USER_ID=$(id -u) GROUP_ID=$(id -g) docker-compose build
+	USER_ID=`id -u` GROUP_ID=`id -g` docker-compose build
 
 project-init: project-composer-install project-wait-postgres-db
 
