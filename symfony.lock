@@ -199,6 +199,22 @@
     "symfony/orm-pack": {
         "version": "v1.0.7"
     },
+    "symfony/phpunit-bridge": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "170be6250b77b421f02e986e2853df86c7bd6516"
+        },
+        "files": [
+            ".env.test",
+            "bin/phpunit",
+            "config/bootstrap.php",
+            "phpunit.xml.dist",
+            "tests/.gitignore"
+        ]
+    },
     "symfony/polyfill-intl-idn": {
         "version": "v1.13.1"
     },
@@ -239,6 +255,9 @@
     },
     "webimpress/safe-writer": {
         "version": "2.0.0"
+    },
+    "webmozart/assert": {
+        "version": "1.6.0"
     },
     "zendframework/zend-code": {
         "version": "3.4.1"
