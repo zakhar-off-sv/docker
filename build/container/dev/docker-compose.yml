@@ -27,6 +27,8 @@ services:
             - postgres
         networks:
             - sf-network
+        environment:
+            PHP_IDE_CONFIG: "serverName=Docker"
     nginx:
         container_name: sf-nginx
         build:
@@ -46,3 +48,8 @@ volumes:
 
 networks:
     sf-network:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                -   subnet: 192.168.220.0/28
