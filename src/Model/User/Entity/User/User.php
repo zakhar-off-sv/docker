@@ -99,12 +99,12 @@ class User
         return $this->date;
     }
 
-    public function getEmail(): Email
+    public function getEmail(): ?Email
     {
         return $this->email;
     }
 
-    public function getPasswordHash(): string
+    public function getPasswordHash(): ?string
     {
         return $this->passwordHash;
     }
