@@ -123,4 +123,12 @@ class User
         $this->status = self::STATUS_ACTIVE;
         $this->confirmToken = null;
     }
+
+    /**
+     * @return Network[]
+     */
+    public function getNetworks(): array
+    {
+        return $this->networks->toArray();
+    }
 }
