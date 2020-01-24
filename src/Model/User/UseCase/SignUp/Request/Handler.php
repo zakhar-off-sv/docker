@@ -9,6 +9,8 @@ use App\Model\User\Entity\User\Email;
 use App\Model\User\Entity\User\Id;
 use App\Model\User\Entity\User\User;
 use App\Model\User\Entity\User\UserRepository;
+use App\Model\User\Service\ConfirmTokenizer;
+use App\Model\User\Service\ConfirmTokenSender;
 use App\Model\User\Service\PasswordHasher;
 
 class Handler
@@ -53,5 +55,7 @@ class Handler
         $this->users->add($user);
 
         $this->flusher->flush();
+
+        $this->sender->send($email, $user->getConfirmToken());
     }
 }
