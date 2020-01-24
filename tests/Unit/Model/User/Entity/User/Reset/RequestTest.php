@@ -49,6 +49,17 @@ class RequestTest extends TestCase
         self::assertEquals($token2, $user->getResetToken());
     }
 
+    public function testNotConfirmed(): void
+    {
+        $now = new \DateTimeImmutable();
+        $token = new ResetToken('token', $now->modify('+ 1 day'));
+
+        $user = (new UserBuilder())->viaEmail()->build();
+
+        self::expectExceptionMessage('User is not active.');
+        $user->requestPasswordReset($token, $now);
+    }
+
     public function testWithoutEmail(): void
     {
         $now = new \DateTimeImmutable();
