@@ -20,15 +20,15 @@ class User
      */
     private $date;
     /**
-     * @var Email
+     * @var Email|null
      */
     private $email;
     /**
-     * @var string
+     * @var string|null
      */
     private $passwordHash;
     /**
-     * @var string
+     * @var string|null
      */
     private $confirmToken;
     /**
@@ -40,6 +40,11 @@ class User
      */
     private $status;
     /**
+     * @var Role
+     */
+    private $role;
+
+    /**
      * @var Network[]|ArrayCollection
      */
     private $networks;
@@ -48,6 +53,7 @@ class User
     {
         $this->id = $id;
         $this->date = $date;
+        $this->role = Role::user();
         $this->networks = new ArrayCollection();
     }
 
@@ -111,6 +117,15 @@ class User
         $this->resetToken = null;
     }
 
+    public function changeRole(Role $role): void
+    {
+        if ($this->role->isEqual($role)) {
+            throw new \DomainException('Role is already same.');
+        }
+
+        $this->role = $role;
+    }
+
     public function isWait(): bool
     {
         return $this->status === self::STATUS_WAIT;
@@ -149,6 +164,11 @@ class User
     public function getResetToken(): ?ResetToken
     {
         return $this->resetToken;
+    }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
     }
 
     public function confirmSignUp(): void
