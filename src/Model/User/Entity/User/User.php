@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace App\Model\User\Entity\User;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="user_users")
+ */
 class User
 {
     private const STATUS_WAIT = 'wait';
@@ -17,6 +23,7 @@ class User
     private $id;
     /**
      * @var \DateTimeImmutable
+     * @ORM\Column(type="datetime_immutable")
      */
     private $date;
     /**
@@ -25,18 +32,22 @@ class User
     private $email;
     /**
      * @var string|null
+     * @ORM\Column(type="string", nullable=true, name="password_hash")
      */
     private $passwordHash;
     /**
      * @var string|null
+     * @ORM\Column(type="string", nullable=true, name="confirm_token")
      */
     private $confirmToken;
     /**
      * @var ResetToken|null
+     * @ORM\Embedded(class="ResetToken", columnPrefix="reset_token_")
      */
     private $resetToken;
     /**
      * @var string
+     * @ORM\Column(type="string", length=16)
      */
     private $status;
     /**
@@ -187,5 +198,15 @@ class User
     public function getNetworks(): array
     {
         return $this->networks->toArray();
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function checkEmbeds(): void
+    {
+        if ($this->resetToken->isEmpty()) {
+            $this->resetToken = null;
+        }
     }
 }
