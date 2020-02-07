@@ -10,7 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="user_users")
+ * @ORM\Table(name="user_users", uniqueConstraints={
+ *     @ORM\UniqueConstraint(columns={"email"}),
+ *     @ORM\UniqueConstraint(columns={"reset_token_token"})
+ * })
  */
 class User
 {
@@ -20,6 +23,7 @@ class User
     /**
      * @var Id
      * @ORM\Column(type="user_user_id")
+     * @ORM\Id
      */
     private $id;
     /**
@@ -60,6 +64,7 @@ class User
 
     /**
      * @var Network[]|ArrayCollection
+     * @ORM\OneToMany(targetEntity="Network", mappedBy="user", orphanRemoval=true, cascade={"persist"})
      */
     private $networks;
 

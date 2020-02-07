@@ -9,6 +9,7 @@ doctrine:
             collate: -
 
         url: '%env(resolve:DATABASE_URL)%'
+
         types:
             user_user_id: 'App\Model\User\Entity\User\IdType'
             user_user_email: 'App\Model\User\Entity\User\EmailType'
