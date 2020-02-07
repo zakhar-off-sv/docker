@@ -15,10 +15,13 @@ docker-pull:
 docker-build:
 	USER_ID=`id -u` GROUP_ID=`id -g` docker-compose build
 
-project-init: project-composer-install project-wait-postgres-db
+project-init: project-composer-install project-wait-postgres-db project-migrations
 
 project-composer-install:
 	docker-compose exec -T php-fpm composer install
 
 project-wait-postgres-db:
 	until docker-compose exec -T postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done
+
+project-migrations:
+	docker-compose exec -T php-fpm php bin/console doctrine:migrations:migrate --no-interaction
