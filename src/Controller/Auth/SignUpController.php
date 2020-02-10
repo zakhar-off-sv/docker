@@ -43,7 +43,7 @@ class  SignUpController extends AbstractController
                 return $this->redirectToRoute('home');
             } catch (\DomainException $e) {
                 $this->logger->error($e->getMessage(), ['exception' => $e]);
-                $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'exception'));
+                $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'exceptions'));
             }
         }
 
@@ -68,7 +68,7 @@ class  SignUpController extends AbstractController
             return $this->redirectToRoute('home');
         } catch (\DomainException $e) {
             $this->logger->error($e->getMessage(), ['exception' => $e]);
-            $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'exception'));
+            $this->addFlash('error', $this->translator->trans($e->getMessage(), [], 'exceptions'));
             return $this->redirectToRoute('home');
         }
     }
