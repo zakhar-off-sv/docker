@@ -1,4 +1,4 @@
-init: docker-down docker-pull docker-build docker-up project-init
+init: docker-down-clear docker-pull docker-build docker-up project-init
 
 docker-up:
 	USER_ID=`id -u` GROUP_ID=`id -g` docker-compose up -d

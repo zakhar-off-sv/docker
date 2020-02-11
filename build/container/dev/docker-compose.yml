@@ -11,8 +11,6 @@ services:
             POSTGRES_DB: app
         ports:
             - "54321:5432"
-        networks:
-            - sf-network
     php-fpm:
         container_name: sf-php-fpm
         build:
@@ -25,8 +23,7 @@ services:
             - ../../../:/var/www/app
         depends_on:
             - postgres
-        networks:
-            - sf-network
+            - mailer
     nginx:
         container_name: sf-nginx
         build:
@@ -37,12 +34,11 @@ services:
         depends_on:
             - php-fpm
         ports:
-            - "818:80"
-        networks:
-            - sf-network
+            - "8080:80"
+    mailer:
+        image: mailhog/mailhog
+        ports:
+            - "8081:8025"
 
 volumes:
     sf-postgres:
-
-networks:
-    sf-network:
