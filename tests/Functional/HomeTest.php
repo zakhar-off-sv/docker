@@ -10,12 +10,10 @@ class HomeTest extends WebTestCase
 {
     public function testGuest(): void
     {
-        $client = static ::createClient();
+        $client = static::createClient();
         $client->request('GET', '/');
-    }
 
-    public function testSuccess(): void
-    {
-
+        $this->assertSame(302, $client->getResponse()->getStatusCode());
+        //$this->assertSame('http://localhost/login', $client->getResponse()->headers->get('Location'));
     }
 }
