@@ -15,10 +15,13 @@ docker-pull:
 docker-build:
 	USER_ID=`id -u` GROUP_ID=`id -g` docker-compose build
 
-project-init: project-composer-install project-wait-postgres-db project-migrations project-fixtures
+project-init: project-composer-install project-assets-install project-wait-postgres-db project-migrations project-fixtures
 
 project-composer-install:
 	docker-compose exec -T php-fpm composer install
+
+project-assets-install:
+	docker-compose run --rm node yarn install
 
 project-wait-postgres-db:
 	until docker-compose exec -T postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done
