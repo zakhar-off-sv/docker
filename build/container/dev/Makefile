@@ -29,6 +29,7 @@ project-composer-install:
 
 project-assets-install:
 	docker-compose run --rm node yarn install
+	docker-compose run --rm node npm rebuild node-sass
 
 project-wait-db:
 	until docker-compose exec -T postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done
