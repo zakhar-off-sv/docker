@@ -24,6 +24,7 @@ services:
         depends_on:
             - postgres
             - mailer
+            - redis
     nginx:
         container_name: sf-nginx
         build:
@@ -46,6 +47,12 @@ services:
         volumes:
             - ../../../:/app
         working_dir: /app
+    redis:
+        container_name: sf-redis
+        image: redis:3.0-alpine
+        volumes:
+          - sf-redis:/data
+        command: redis-server --requirepass secret
     mailer:
         image: mailhog/mailhog
         ports:
@@ -53,3 +60,4 @@ services:
 
 volumes:
     sf-postgres:
+    sf-redis:
