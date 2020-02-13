@@ -1,4 +1,8 @@
-init: docker-down-clear docker-pull docker-build docker-up project-init
+up: docker-up
+down: docker-down
+restart: docker-down docker-up
+init: docker-down-clear project-clear docker-pull docker-build docker-up project-init
+test: project-tests
 
 docker-up:
 	USER_ID=`id -u` GROUP_ID=`id -g` docker-compose up -d
@@ -15,7 +19,10 @@ docker-pull:
 docker-build:
 	USER_ID=`id -u` GROUP_ID=`id -g` docker-compose build
 
-project-init: project-composer-install project-assets-install project-wait-postgres-db project-migrations project-fixtures
+project-init: project-composer-install project-assets-install project-wait-db project-migrations project-fixtures project-ready
+
+project-clear:
+	docker run --rm -v ${PWD}/../../..:/app --workdir=/app alpine rm -f .ready
 
 project-composer-install:
 	docker-compose exec -T php-fpm composer install
@@ -23,7 +30,7 @@ project-composer-install:
 project-assets-install:
 	docker-compose run --rm node yarn install
 
-project-wait-postgres-db:
+project-wait-db:
 	until docker-compose exec -T postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done
 
 project-migrations:
@@ -31,6 +38,12 @@ project-migrations:
 
 project-fixtures:
 	docker-compose exec -T php-fpm php bin/console doctrine:fixtures:load --no-interaction
+
+project-ready:
+	docker run --rm -v ${PWD}/../../..:/app --workdir=/app alpine touch .ready
+
+project-assets-dev:
+	docker-compose run --rm node npm run dev
 
 project-tests:
 	docker-compose exec -T php-fpm php bin/phpunit
