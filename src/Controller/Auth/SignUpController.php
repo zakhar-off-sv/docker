@@ -58,9 +58,9 @@ class  SignUpController extends AbstractController
      * @param SignUp\Confirm\Handler $handler
      * @return Response
      */
-    public function confirm(string $token, SignUp\Confirm\Handler $handler): Response
+    public function confirm(string $token, SignUp\Confirm\ByToken\Handler $handler): Response
     {
-        $command = new SignUp\Confirm\Command($token);
+        $command = new SignUp\Confirm\ByToken\Command($token);
 
         try {
             $handler->handle($command);
