@@ -36,7 +36,7 @@ class RoleCommand extends Command
             ->setDescription('Changes user role');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $helper = $this->getHelper('question');
 
@@ -57,11 +57,13 @@ class RoleCommand extends Command
             foreach ($violations as $violation) {
                 $output->writeln('<error>' . $violation->getPropertyPath() . ': ' . $violation->getMessage() . '</error>');
             }
-            return;
+            return 0;
         }
 
         $this->handler->handle($command);
 
         $output->writeln('<info>Done!</info>');
+
+        return 0;
     }
 }
