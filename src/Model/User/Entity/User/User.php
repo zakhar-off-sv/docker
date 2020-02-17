@@ -190,6 +190,11 @@ class User
         return $this->role;
     }
 
+    public function getStatus(): string
+    {
+        return $this->status;
+    }
+
     public function confirmSignUp(): void
     {
         if (!$this->isWait()) {
